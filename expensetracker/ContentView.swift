@@ -228,7 +228,7 @@ struct ReportView: View {
                     HStack {
                         Text(category)
                             .font(.body)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                         
                         Spacer()
                         
@@ -252,7 +252,7 @@ struct ReportView: View {
                     HStack {
                         Text(month)
                             .font(.body)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                         
                         Spacer()
                         
@@ -276,13 +276,13 @@ struct ReportView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         Text(month)
                             .font(.headline)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                         
                         ForEach(totalSumByMonthAndCategory()[month]!.keys.sorted(), id: \.self) { category in
                             HStack {
                                 Text(category)
                                     .font(.body)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.white)
                                 
                                 Spacer()
                                 
