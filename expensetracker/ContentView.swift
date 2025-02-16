@@ -62,6 +62,28 @@ struct ContentView: View {
                     Text("View Report")
                         .padding(.top)
                 }
+                
+                // Expenses List
+                List {
+                    ForEach(expenses) { expense in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("$\(String(format: "%.2f", expense.amount))")
+                                    .font(.body)
+                                Text(expense.category)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                            Spacer()
+                            Button("Edit") {
+                                editExpense(expense)
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
+                            .foregroundColor(.blue)
+                        }
+                    }
+                    .onDelete(perform: deleteExpense)
+                }
             }
             .padding()
             .navigationBarTitle("Enter Expense")
@@ -109,6 +131,22 @@ struct ContentView: View {
         return []
     }
     
+    // Delete an expense
+    func deleteExpense(at offsets: IndexSet) {
+        expenses.remove(atOffsets: offsets)
+        saveToUserDefaults(expenses: expenses)
+    }
+
+    // Edit an expense
+    func editExpense(_ expense: Expense) {
+        if let index = expenses.firstIndex(where: { $0.id == expense.id }) {
+            let editedExpense = expenses[index]
+            // Update values (for simplicity, edit in place for now)
+            expenses[index] = editedExpense
+            saveToUserDefaults(expenses: expenses)
+        }
+    }
+
     // Function to calculate the total sum of all expenses
     func totalSum() -> Double {
         return expenses.reduce(0) { $0 + $1.amount }
@@ -313,7 +351,6 @@ struct ReportView_Previews: PreviewProvider {
         ])
     }
 }
-
 
 
 #Preview {
